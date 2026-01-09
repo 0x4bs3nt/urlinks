@@ -52,6 +52,6 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop("confirm_password")
 
-        user = CustomUser.objects.create_user(**validated_data, is_active=False)
+        user = CustomUser.objects.create_user(**validated_data, is_active=True)
 
         return user
