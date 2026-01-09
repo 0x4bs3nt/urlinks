@@ -82,6 +82,20 @@ DATABASES = {
     }
 }
 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "endpoint_url": os.getenv("R2_ENDPOINT_URL"),
+            "access_key": os.getenv("R2_ACCESS_KEY"),
+            "secret_key": os.getenv("R2_SECRET_KEY"),
+            "bucket_name": os.getenv("R2_BUCKET_NAME"),
+            "signature_version": "s3v4",
+        },
+    },
+    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
