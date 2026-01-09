@@ -49,3 +49,10 @@ Using `bun` is a must for this project, we do not use other package managers or 
 1. After pulling the project, head over to the `web` directory and run `bun install`. This will install all dependencies for the project.
 2. Fill out the `.env` according to the `.env.example` file, the `.env` should be located at the same place and level as the example one.
 3. Start the frontend service with `bun dev`.
+
+## Useful URLs
+
+After running the project, you can navigate to `/admin` on the backend for the Django admin panel with all registered models.
+You might need to have a superuser for this, you can create one using `python manage.py createsuperuser`.
+
+You can also navigate to `/api/docs` on the backend for the automatically generated Swagger UI.
