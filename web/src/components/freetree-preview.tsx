@@ -10,6 +10,7 @@ export interface FreetreeLink {
 
 export interface FreetreeProfile {
     displayName: string;
+    bio?: string;
     links: FreetreeLink[];
 }
 
@@ -45,9 +46,12 @@ export function FreetreePreview({ profile }: FreetreePreviewProps) {
                             </span>
                         </div>
                         <h1 className="text-lg font-bold text-foreground mb-1">@{profile.displayName || 'username'}</h1>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs text-muted-foreground mb-2">
                             freetree.dev/{profile.displayName || 'username'}
                         </p>
+                        {profile.bio && (
+                            <p className="text-sm text-foreground/80 px-2 leading-relaxed">{profile.bio}</p>
+                        )}
                     </div>
 
                     {/* Links */}

@@ -23,6 +23,7 @@ const socialPlatforms = [
 export default function DashboardHome() {
     const [profile, setProfile] = useState<FreetreeProfile>({
         displayName: '',
+        bio: '',
         links: [],
     });
 
@@ -61,17 +62,28 @@ export default function DashboardHome() {
         setProfile((prev) => ({ ...prev, displayName: sanitized }));
     };
 
+    const updateBio = (value: string) => {
+        if (value.length <= 160) {
+            setProfile((prev) => ({ ...prev, bio: value }));
+        }
+    };
+
     return (
         <div className="h-full w-full overflow-hidden">
             <div className="h-full grid lg:grid-cols-[1fr_600px] gap-6 p-4 md:p-6 overflow-hidden">
                 {/* Editor Section */}
                 <div className="flex flex-col gap-6 overflow-y-auto pr-2 scrollbar-thin">
-                    {/* Display Name Section */}
+                    {/* General Profile Section */}
                     <Card className="border-border bg-card shadow-sm hover:shadow-md transition-shadow">
-                        <CardContent className="space-y-4">
+                        <CardHeader className="pb-2">
+                            <CardTitle>General Profile</CardTitle>
+                            <CardDescription>Customize how your profile appears to visitors</CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-6">
+                            {/* Display Name */}
                             <div className="space-y-2">
                                 <Label htmlFor="displayName" className="font-medium text-foreground">
-                                    Display Name
+                                    Display Name <span className="text-destructive">*</span>
                                 </Label>
                                 <div className="relative">
                                     <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
@@ -88,6 +100,27 @@ export default function DashboardHome() {
                                 <p className="text-xs text-muted-foreground">
                                     Only lowercase letters, numbers, and underscores
                                 </p>
+                            </div>
+
+                            {/* Bio Section */}
+                            <div className="space-y-2">
+                                <Label htmlFor="bio" className="font-medium text-foreground">
+                                    Bio
+                                </Label>
+                                <Textarea
+                                    id="bio"
+                                    value={profile.bio}
+                                    onChange={(e) => updateBio(e.target.value)}
+                                    placeholder="Tell visitors a little about yourself..."
+                                    className="bg-background border-border focus:border-primary transition-colors resize-none"
+                                    rows={3}
+                                />
+                                <div className="flex justify-between text-xs text-muted-foreground">
+                                    <span>Optional</span>
+                                    <span className={profile.bio && profile.bio.length > 140 ? 'text-amber-500' : ''}>
+                                        {profile.bio?.length || 0}/160
+                                    </span>
+                                </div>
                             </div>
                         </CardContent>
                     </Card>
