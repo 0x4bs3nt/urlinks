@@ -18,3 +18,13 @@ class Page(models.Model):
 
     def __str__(self):
         return self.display_name
+
+    # Delete associated images on R2 when the Page is deleted
+    def delete(self, *args, **kwargs):
+        if self.profile_picture:
+            self.profile_picture.delete(save=False)
+
+        if self.banner_picture:
+            self.banner_picture.delete(save=False)
+
+        super().delete(*args, **kwargs)
