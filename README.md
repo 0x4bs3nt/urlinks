@@ -1,2 +1,9 @@
+<div align="center">
+
 # freetree
-Like linktree but everything is free cause nobody is paying to display 5 links on a website.
+
+![GitHub License](https://img.shields.io/github/license/0x4bs3nt/freetree)
+
+<img alt="BetterCD" width="800" src="https://i.ibb.co/KjcH3BvN/svgviewer-output.png">
+
+</div>
