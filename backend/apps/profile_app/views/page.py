@@ -21,9 +21,9 @@ class PageViewSet(viewsets.ModelViewSet):
         if self.request.user.is_authenticated:
             return Page.objects.filter(
                 models.Q(is_published=True) | models.Q(user=self.request.user)
-            )
+            ).prefetch_related("links")
         else:
-            return Page.objects.filter(is_published=True)
+            return Page.objects.filter(is_published=True).prefetch_related("links")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
