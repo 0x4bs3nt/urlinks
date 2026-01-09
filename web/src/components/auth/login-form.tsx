@@ -60,7 +60,7 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
                 <CardContent>
                     <div className="grid gap-6">
                         <Form {...form}>
-                            { }
+                            {}
                             <form className="grid gap-1" onSubmit={form.handleSubmit(onSubmit)}>
                                 <FormField
                                     control={form.control}
