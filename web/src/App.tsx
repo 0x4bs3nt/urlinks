@@ -6,6 +6,7 @@ import LoginRoute from './app/auth/login-route';
 import LoginPage from './app/auth/login';
 import LandingPage from './pages/landing';
 import SupportPage from './pages/support';
+import RegisterPage from './app/auth/register';
 
 const Layout = () => (
     <>
@@ -34,6 +35,7 @@ export function App() {
                 {/* Public routes without header */}
                 <Route element={<LoginRoute />}>
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
                 </Route>
             </Routes>
         </>

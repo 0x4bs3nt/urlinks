@@ -1,8 +1,8 @@
 import { GalleryVerticalEnd } from 'lucide-react';
 
-import LoginForm from '@/components/auth/login-form';
+import RegisterForm from '@/components/auth/register-form';
 
-const LoginPage = () => {
+const RegisterPage = () => {
     return (
         <div className="flex h-screen w-full items-center justify-center overflow-hidden p-4 md:p-6">
             <div className="flex w-full max-w-sm flex-col gap-6">
@@ -12,10 +12,10 @@ const LoginPage = () => {
                     </div>
                     freetree
                 </div>
-                <LoginForm />
+                <RegisterForm />
             </div>
         </div>
     );
 };
 
-export default LoginPage;
+export default RegisterPage;
