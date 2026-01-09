@@ -33,3 +33,33 @@ jobs:
           source .venv/bin/activate
           pip install pre-commit
           pre-commit run --all-files
+
+
+  frontend-checks:
+    name: Frontend Linting & Formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        working-directory: ./web
+        run: bun install
+
+      - name: Run ESLint
+        working-directory: ./web
+        run: bun run lint
+
+      - name: Check Prettier formatting
+        working-directory: ./web
+        run: bun run prettier . --check
+
+      - name: TypeScript type check
+        working-directory: ./web
+        run: bun run typecheck
