@@ -2,6 +2,10 @@ from apps.profile_app.models.page import Page
 from django.db import models
 
 
+def link_icon_path(instance, filename):
+    return f"folder_{instance.page.user_id}/link_icons/{filename}"
+
+
 class LinkCategory(models.TextChoices):
     WEBSITE = "website", "Website"
     FACEBOOK = "facebook", "Facebook"
@@ -22,7 +26,7 @@ class Link(models.Model):
     title = models.CharField(max_length=50)
     url = models.URLField()
     description = models.CharField(max_length=100, blank=True, null=True)
-    icon = models.ImageField(upload_to="links/icons/", blank=True, null=True)
+    icon = models.ImageField(upload_to=link_icon_path, blank=True, null=True)
     category = models.CharField(
         max_length=20, choices=LinkCategory.choices, default=LinkCategory.WEBSITE
     )
