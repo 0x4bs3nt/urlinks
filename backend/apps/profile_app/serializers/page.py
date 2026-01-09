@@ -15,6 +15,7 @@ class PageSerializer(serializers.ModelSerializer):
             "bio",
             "profile_picture",
             "banner_picture",
+            "template",
             "is_published",
             "links",
         ]

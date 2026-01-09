@@ -1,4 +1,5 @@
 from apps.core.models import CustomUser
+from apps.profile_app.models.template import Template
 from django.db import models
 
 
@@ -21,6 +22,13 @@ class Page(models.Model):
     )
     banner_picture = models.ImageField(
         upload_to=banner_picture_path, blank=True, null=True
+    )
+    template = models.ForeignKey(
+        Template,
+        on_delete=models.SET_NULL,
+        related_name="pages",
+        blank=True,
+        null=True,
     )
     is_published = models.BooleanField(default=False)
 
