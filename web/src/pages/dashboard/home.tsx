@@ -63,7 +63,7 @@ export default function DashboardHome() {
     };
 
     const updateBio = (value: string) => {
-        if (value.length <= 160) {
+        if (value.length <= 200) {
             setProfile((prev) => ({ ...prev, bio: value }));
         }
     };
@@ -115,10 +115,9 @@ export default function DashboardHome() {
                                     className="bg-background border-border focus:border-primary transition-colors resize-none"
                                     rows={3}
                                 />
-                                <div className="flex justify-between text-xs text-muted-foreground">
-                                    <span>Optional</span>
-                                    <span className={profile.bio && profile.bio.length > 140 ? 'text-amber-500' : ''}>
-                                        {profile.bio?.length || 0}/160
+                                <div className="flex justify-end text-xs text-muted-foreground">
+                                    <span className={profile.bio && profile.bio.length > 180 ? 'text-amber-500' : ''}>
+                                        {profile.bio?.length || 0}/200
                                     </span>
                                 </div>
                             </div>
