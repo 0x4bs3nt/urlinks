@@ -10,7 +10,7 @@
 
 <br />
 
-Completely free and fully open source link-in-bio tool. Like other lin-in-bio tools, 
+Completely free and fully open source link-in-bio tool. Like other link-in-bio tools, 
 but everything is free and open source, cause nobody is paying to display 5 links on a website. 
 
 <br />
