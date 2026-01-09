@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(0.176 0.014 285.821);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:oklch(0.137 0.011 285.883);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(0.552 0.173 285.938);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:oklch(0.552 0.173 285.938 / 0.6);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:oklch(0.552 0.173 285.938);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:oklch(0.552 0.173 285.938 / 0.6);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)" />
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="200" fill="oklch(0.552 0.173 285.938 / 0.05)" />
+  <circle cx="1100" cy="530" r="250" fill="oklch(0.552 0.173 285.938 / 0.05)" />
+
+  <!-- Logo -->
+  <rect x="100" y="215" width="120" height="120" rx="24" fill="url(#logo-gradient)" />
+  <text x="160" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="700" fill="white" text-anchor="middle">F</text>
+
+  <!-- freetree text -->
+  <text x="250" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="700" fill="white">freetree</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="500" fill="oklch(0.708 0.013 286.067)">Free & Open Source Link-in-Bio Tool</text>
+
+  <!-- Features -->
+  <text x="100" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="oklch(0.553 0.016 285.938)">✓ Unlimited Links</text>
+  <text x="395" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="oklch(0.553 0.016 285.938)">✓ Custom Themes</text>
+  <text x="700" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="oklch(0.553 0.016 285.938)">✓ Analytics</text>
+  <text x="900" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="oklch(0.553 0.016 285.938)">✓ No Paywalls</text>
+</svg>
