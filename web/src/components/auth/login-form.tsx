@@ -44,6 +44,7 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
                 setAll({
                     id: res.id,
                     username: res.username || data.username,
+                    email: res.email,
                     access: res.access,
                     refresh: res.refresh,
                 });

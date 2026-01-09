@@ -19,6 +19,7 @@ class CustomTokenPairSerializer(TokenObtainPairSerializer):
 
         data["id"] = self.user.id
         data["username"] = self.user.username
+        data["email"] = self.user.email
 
         return data
 

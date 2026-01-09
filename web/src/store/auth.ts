@@ -5,6 +5,7 @@ import { fetchTokens, removeTokens } from '@/lib/localStorage';
 interface TokenType {
     id: number | null;
     username: string | null;
+    email: string | null;
     access: string | null;
     refresh: string | null;
 }
@@ -21,6 +22,7 @@ const tokens = fetchTokens();
 export const useAuthStore = create<AuthStore>((set) => ({
     id: tokens?.id || null,
     username: tokens?.username || null,
+    email: tokens?.email || null,
     access: tokens?.access || null,
     refresh: tokens?.refresh || null,
 
