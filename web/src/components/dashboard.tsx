@@ -9,6 +9,8 @@ import {
     CreditCardIcon,
     BellIcon,
     LogOutIcon,
+    Github,
+    HeartIcon,
 } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -21,7 +23,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Separator } from '@/components/ui/separator';
 import {
     Sidebar,
     SidebarContent,
@@ -36,6 +37,22 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from '@/components/ui/sidebar';
+import { useAuthStore } from '@/store/auth';
+
+const navMain = [
+    {
+        title: 'Profile',
+        url: '/dashboard',
+    },
+    {
+        title: 'Links',
+        url: '/dashboard/links',
+    },
+    {
+        title: 'Analytics',
+        url: '/dashboard/analytics',
+    },
+];
 
 export default function DashboardLayout() {
     return (
@@ -61,40 +78,21 @@ export default function DashboardLayout() {
 }
 
 function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const navMain = [
-        {
-            title: 'Dashboard',
-            url: '/dashboard',
-        },
-        {
-            title: 'Links',
-            url: '/dashboard/links',
-        },
-        {
-            title: 'Analytics',
-            url: '/dashboard/analytics',
-        },
-    ];
-
-    const user = {
-        name: 'shadcn',
-        email: 'm@example.com',
-        avatar: '/avatars/shadcn.jpg',
-    };
-
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
                 <div className="flex items-center gap-2 px-2 py-1.5">
                     <LayersIcon className="size-5 text-sidebar-foreground" />
-                    <span className="text-base font-semibold text-sidebar-foreground">freetree</span>
+                    <span className="text-base font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
+                        freetree
+                    </span>
                 </div>
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={navMain} />
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={user} />
+                <NavUser />
             </SidebarFooter>
         </Sidebar>
     );
@@ -147,15 +145,13 @@ function NavMain({
     );
 }
 
-function NavUser({
-    user,
-}: {
-    user: {
-        name: string;
-        email: string;
-        avatar: string;
-    };
-}) {
+function NavUser() {
+    const authStore = useAuthStore();
+    const username = authStore.username;
+    const email = authStore.email;
+
+    const logout = authStore.logout;
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
@@ -166,12 +162,15 @@ function NavUser({
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
-                                <AvatarImage src={user.avatar} alt={user.name} />
+                                <AvatarImage
+                                    //src={user.avatar}
+                                    alt={username || 'User Avatar'}
+                                />
                                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-medium">{user.name}</span>
-                                <span className="text-muted-foreground truncate text-xs">{user.email}</span>
+                                <span className="truncate font-medium">{username}</span>
+                                <span className="text-muted-foreground truncate text-xs">{email}</span>
                             </div>
                             <MoreVerticalIcon className="ml-auto size-4" />
                         </SidebarMenuButton>
@@ -185,12 +184,15 @@ function NavUser({
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">
-                                    <AvatarImage src={user.avatar} alt={user.name} />
+                                    <AvatarImage
+                                        // src={user.avatar}
+                                        alt={username || 'User Avatar'}
+                                    />
                                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-medium">{user.name}</span>
-                                    <span className="text-muted-foreground truncate text-xs">{user.email}</span>
+                                    <span className="truncate font-medium">{username}</span>
+                                    <span className="text-muted-foreground truncate text-xs">{email}</span>
                                 </div>
                             </div>
                         </DropdownMenuLabel>
@@ -210,7 +212,7 @@ function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={logout}>
                             <LogOutIcon />
                             Log out
                         </DropdownMenuItem>
@@ -226,8 +228,24 @@ function SiteHeader() {
         <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
             <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
                 <SidebarTrigger className="-ml-1" />
-                <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
-                <h1 className="text-base font-medium text-foreground">Dashboard</h1>
+                <div className="ml-auto flex items-center gap-2">
+                    <NavLink
+                        to="/donate"
+                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                    >
+                        <HeartIcon className="size-4" />
+                        <span>Donate</span>
+                    </NavLink>
+                    <a
+                        href="https://github.com/0x4bs3nt/freetree"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                    >
+                        <Github className="size-4" />
+                        <span>GitHub</span>
+                    </a>
+                </div>
             </div>
         </header>
     );
