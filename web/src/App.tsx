@@ -4,6 +4,8 @@ import { Header } from './components/header';
 import PrivateRoute from './app/auth/private-route';
 import LoginRoute from './app/auth/login-route';
 import LoginPage from './app/auth/login';
+import LandingPage from './pages/landing';
+import SupportPage from './pages/support';
 
 const Layout = () => (
     <>
@@ -19,7 +21,10 @@ export function App() {
             <Routes>
                 {/* Routes with header */}
                 <Route element={<Layout />}>
-                    <Route path="/" element={<div>Home Page</div>} />
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/donate" element={<SupportPage />} />
+                    <Route path="/privacy" element={<div>Privacy Policy - Coming Soon</div>} />
+                    <Route path="/terms" element={<div>Terms of Service - Coming Soon</div>} />
                 </Route>
 
                 <Route element={<PrivateRoute />}>
