@@ -1,4 +1,5 @@
 from apps.core import urls as core_urls
+from apps.profile_app import urls as profile_app_urls
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -14,6 +15,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # Apps
     path("core/", include(core_urls)),
+    path("profile/", include(profile_app_urls)),
     # API Schema
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
