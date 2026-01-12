@@ -11,6 +11,7 @@ export interface FreetreeLink {
 export interface FreetreeProfile {
     displayName: string;
     bio?: string;
+    showWatermark?: boolean;
     links: FreetreeLink[];
 }
 
@@ -106,9 +107,21 @@ export function FreetreePreview({ profile }: FreetreePreviewProps) {
                     </div>
 
                     {/* Footer */}
-                    <div className="text-center mt-8 pb-6 animate-in fade-in duration-700 delay-500">
-                        <p className="text-xs text-muted-foreground/60">Powered by freetree</p>
-                    </div>
+                    {profile.showWatermark !== false && (
+                        <div className="text-center mt-8 pb-6 animate-in fade-in duration-700 delay-500">
+                            <p className="text-xs text-muted-foreground/60">
+                                Powered by{' '}
+                                <a
+                                    href="https://github.com/0x4bs3nt/freetree"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="underline hover:text-primary transition-colors"
+                                >
+                                    freetree
+                                </a>
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

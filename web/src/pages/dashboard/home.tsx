@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FreetreePreview, type FreetreeLink, type FreetreeProfile } from '@/components/freetree-preview';
@@ -24,6 +25,7 @@ export default function DashboardHome() {
     const [profile, setProfile] = useState<FreetreeProfile>({
         displayName: '',
         bio: '',
+        showWatermark: true,
         links: [],
     });
 
@@ -120,6 +122,33 @@ export default function DashboardHome() {
                                         {profile.bio?.length || 0}/200
                                     </span>
                                 </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* Branding Section */}
+                    <Card className="border-border bg-card shadow-sm hover:shadow-md transition-shadow">
+                        <CardHeader className="pb-2">
+                            <CardTitle>Branding</CardTitle>
+                            <CardDescription>Control how freetree branding appears on your page</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="flex items-center justify-between rounded-lg border border-border p-4">
+                                <div className="space-y-0.5">
+                                    <Label htmlFor="watermark" className="font-medium text-foreground">
+                                        Show "Powered by freetree"
+                                    </Label>
+                                    <p className="text-xs text-muted-foreground">
+                                        Display a small credit link to support the project
+                                    </p>
+                                </div>
+                                <Switch
+                                    id="watermark"
+                                    checked={profile.showWatermark}
+                                    onCheckedChange={(checked) =>
+                                        setProfile((prev) => ({ ...prev, showWatermark: checked }))
+                                    }
+                                />
                             </div>
                         </CardContent>
                     </Card>
