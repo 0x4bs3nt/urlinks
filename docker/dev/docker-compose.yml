@@ -15,12 +15,12 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ../../backend
       dockerfile: Dockerfile.dev
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     volumes:
-      - ./backend:/app
+      - ../../backend:/app
     environment:
       SECRET_KEY: ${SECRET_KEY:-django-insecure-dev-key}
       DEBUG: "True"
@@ -48,12 +48,12 @@ services:
 
   frontend:
     build:
-      context: ./web
+      context: ../../web
       dockerfile: Dockerfile.dev
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
     volumes:
-      - ./web:/app
+      - ../../web:/app
       - /app/node_modules
     environment:
       VITE_BE_URL: ${VITE_BE_URL:-http://localhost:8000}
