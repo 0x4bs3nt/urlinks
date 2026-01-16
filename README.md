@@ -4,7 +4,7 @@
 
 ![GitHub License](https://img.shields.io/github/license/0x4bs3nt/freetree)
 
-<img width="1200" height="400" alt="Logo over white background" src="https://github.com/user-attachments/assets/99a7febd-da90-427c-b0a5-49a52735fed8" />
+<img width="1200" height="400" alt="Cover image" src="https://github.com/user-attachments/assets/d5f2cf28-3f6b-4d92-a1da-23e91c36e6ad" />
 
 </div>
 
