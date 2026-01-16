@@ -1,6 +1,6 @@
 <div align="center">
 
-# ↗️ urlinks
+# urlinks
 
 ![GitHub License](https://img.shields.io/github/license/0x4bs3nt/freetree)
 
