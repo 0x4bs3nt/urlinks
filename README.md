@@ -1,10 +1,10 @@
 <div align="center">
 
-# freetree
+# urlinks
 
 ![GitHub License](https://img.shields.io/github/license/0x4bs3nt/freetree)
 
-<img alt="BetterCD" width="800" src="https://i.ibb.co/KjcH3BvN/svgviewer-output.png">
+<img width="1200" height="400" alt="Cover image" src="https://github.com/user-attachments/assets/d5f2cf28-3f6b-4d92-a1da-23e91c36e6ad" />
 
 </div>
 
