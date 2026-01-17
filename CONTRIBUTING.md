@@ -1,16 +1,16 @@
-# Contributing to TreeFree
+# Contributing to urlinks
 
-First and foremost, a massive thank you for even considering contributing to TreeFree! Every contribution, no matter how small, helps make this project better for everyone. You can contribute in many ways:
+First and foremost, a massive thank you for even considering contributing to urlinks! Every contribution, no matter how small, helps make this project better for everyone. You can contribute in many ways:
 
 *   **By code:** Help us build new features, fix bugs, and improve the existing codebase.
-*   **By sharing TreeFree:** Spread the word about TreeFree to your friends, colleagues, and communities.
-*   **By donating:** Support our efforts on [Ko-fi](https://ko-fi.com/4bs3nt).
+*   **By sharing urlinks:** Spread the word about urlinks to your friends, colleagues, and communities.
+*   **By donating:** Support our efforts on [Ko-fi](https://ko-fi.com/4bs3nt) or [Github Sponsors](https://github.com/sponsors/0x4bs3nt/).
 
-Please ensure you read and adhere to our [Code of Conduct](https://github.com/0x4bs3nt/freetree/blob/dev/CODE_OF_CONDUCT.md). We want TreeFree to be a welcoming and inclusive environment for everyone.
+Please ensure you read and adhere to our [Code of Conduct](https://github.com/0x4bs3nt/urlinks/blob/dev/CODE_OF_CONDUCT.md). We want urlinks to be a welcoming and inclusive environment for everyone.
 
 ## Getting Started with Code Contributions
 
-Most of the work that needs to be done on the codebase is tracked in our [GitHub Issues](https://github.com/0x4bs3nt/freetree/issues). If you want to work on something, please check the existing issues first. If you have an idea for a new feature or improvement that isn't already listed, please open a new issue to discuss it before you start working on it. This helps prevent duplicated effort and ensures your contribution aligns with the project's goals.
+Most of the work that needs to be done on the codebase is tracked in our [GitHub Issues](https://github.com/0x4bs3nt/urlinks/issues). If you want to work on something, please check the existing issues first. If you have an idea for a new feature or improvement that isn't already listed, please open a new issue to discuss it before you start working on it. This helps prevent duplicated effort and ensures your contribution aligns with the project's goals.
 
 ## Web/Frontend Contributions
 
@@ -20,8 +20,6 @@ When contributing to the web/frontend, please keep the following guidelines in m
 *   **Package Manager:** We exclusively use [Bun](https://bun.sh/) as our package manager. Please do not use `npm`, `yarn`, or any other manager for this project.
 *   **Code Checks:** Before submitting your code, ensure it passes all checks by running `bun check`.
 *   **Components:** Only [Shadcn UI](https://ui.shadcn.com/) components should be used. If a specific component you need is not available in Shadcn UI, do not install any other component library. Instead, create a custom component to fulfill the requirement.
-*   **Styling:** Primarily use [Tailwind CSS](https://tailwindcss.com/) for all styling. If there's a special styling need that cannot be covered by Tailwind CSS, you may add it to `index.css`.
-*   **No Hardcoding:** Avoid hardcoding values directly into your components or styles. Instead, leverage the variables defined in `index.css` through Tailwind CSS.
 
 ## Backend Contributions
 
@@ -44,4 +42,4 @@ To maintain a clean and understandable commit history, please follow these guide
 
 ## Questions?
 
-If you have any questions or need further clarification, please don't hesitate to reach out to me on Discord: _4bs3nt.
+If you have any questions or need further clarification, please don't hesitate to reach out to me on Discord (_4bs3nt) or in the #freetree-dev channel in [gnukeith's discord server](https://discord.gg/Km5p7gfj35)
