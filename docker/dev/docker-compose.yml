@@ -1,62 +1,51 @@
 services:
-  db:
+  postgres:
     image: postgres:16-alpine
+    container_name: urlinks-postgres-dev
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT_EXPOSED:-5433}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-freetree}
-      POSTGRES_USER: ${POSTGRES_USER:-freetreeuser}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-freetreepass}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-freetreeuser} -d ${POSTGRES_DB:-freetree}"]
-      interval: 5s
-      timeout: 5s
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 3s
       retries: 5
+      start_period: 5s
 
   backend:
     build:
-      context: ../../backend
-      dockerfile: Dockerfile.dev
+      context: ../..
+      dockerfile: docker/dev/backend/Dockerfile
+    container_name: urlinks-backend-dev
+    env_file:
+      - .env
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     volumes:
       - ../../backend:/app
-    environment:
-      SECRET_KEY: ${SECRET_KEY:-django-insecure-dev-key}
-      DEBUG: "True"
-      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1}
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000}
-      CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-http://localhost:3000}
-      POSTGRES_DB: ${POSTGRES_DB:-freetree}
-      POSTGRES_USER: ${POSTGRES_USER:-freetreeuser}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-freetreepass}
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
-      R2_ENDPOINT_URL: ${R2_ENDPOINT_URL:-}
-      R2_ACCESS_KEY: ${R2_ACCESS_KEY:-}
-      R2_SECRET_KEY: ${R2_SECRET_KEY:-}
-      R2_BUCKET_NAME: ${R2_BUCKET_NAME:-}
-      EMAIL_HOST: ${EMAIL_HOST:-}
-      EMAIL_HOST_USER: ${EMAIL_HOST_USER:-}
-      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD:-}
-      EMAIL_PORT: ${EMAIL_PORT:-}
-      EMAIL_USE_TLS: ${EMAIL_USE_TLS:-}
     depends_on:
-      db:
+      postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
 
   frontend:
     build:
-      context: ../../web
-      dockerfile: Dockerfile.dev
+      context: ../..
+      dockerfile: docker/dev/frontend/Dockerfile
+      args:
+        VITE_BE_URL: ${VITE_BE_URL}
+    container_name: urlinks-frontend-dev
+    env_file:
+      - .env
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
     volumes:
       - ../../web:/app
       - /app/node_modules
-    environment:
-      VITE_BE_URL: ${VITE_BE_URL:-http://localhost:8000}
     depends_on:
       - backend
 
