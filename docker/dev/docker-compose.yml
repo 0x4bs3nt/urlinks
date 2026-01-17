@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: urlinks-postgres-dev
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT_EXPOSED:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: docker/dev/backend/Dockerfile
+    container_name: urlinks-backend-dev
+    env_file:
+      - .env
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ../../backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ../..
+      dockerfile: docker/dev/frontend/Dockerfile
+      args:
+        VITE_BE_URL: ${VITE_BE_URL}
+    container_name: urlinks-frontend-dev
+    env_file:
+      - .env
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - ../../web:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
