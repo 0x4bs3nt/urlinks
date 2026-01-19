@@ -4,6 +4,7 @@ from apps.core.serializers.user import (
     CustomTokenPairSerializer,
     RegisterSerializer,
 )
+from apps.core.utils.turnstile import verify_turnstile_token
 from rest_framework import generics, status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
@@ -15,6 +16,14 @@ class CustomTokenPairView(TokenObtainPairView):
     parser_classes = [FormParser, MultiPartParser]
 
     def post(self, request, *args, **kwargs):
+        turnstile_token = request.data.get("cf-turnstile-response", "")
+        client_ip = request.META.get("REMOTE_ADDR")
+        if not verify_turnstile_token(turnstile_token, client_ip):
+            return Response(
+                {"error": "Captcha verification failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         username = request.data["username"]
         password = request.data["password"]
 
@@ -45,6 +54,14 @@ class RegisterView(generics.CreateAPIView):
     parser_classes = [FormParser, MultiPartParser]
 
     def post(self, request, *args, **kwargs):
+        turnstile_token = request.data.get("cf-turnstile-response", "")
+        client_ip = request.META.get("REMOTE_ADDR")
+        if not verify_turnstile_token(turnstile_token, client_ip):
+            return Response(
+                {"error": "Captcha verification failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         if CustomUser.objects.filter(username=request.data.get("username")).exists():
             return Response(
                 {"error": "Username already in use"}, status=status.HTTP_400_BAD_REQUEST

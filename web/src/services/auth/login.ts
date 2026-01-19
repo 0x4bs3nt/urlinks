@@ -6,6 +6,7 @@ import type { AuthTokens } from '@/consts/types/auth';
 interface UserLogin {
     username: string;
     password: string;
+    'cf-turnstile-response': string;
 }
 
 const BASE_URL = import.meta.env.VITE_BE_URL;
