@@ -5,6 +5,66 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Coming Soon Page Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Light mode (default) */
+#root {
+    background-color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 24px;
+    padding: 24px;
+    max-width: 100%;
+    width: 100%;
+}
+
+#header img {
+    height: 48px;
+    width: auto;
+    max-width: 100%;
+}
+
+#header p {
+    color: #000000;
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    #root {
+        background-color: #000000;
+    }
+    #header img {
+        filter: brightness(0) invert(1);
+    }
+    #header p {
+        color: #ffffff;
+    }
+}
+
 :root {
     --background: oklch(0.2393 0 0);
     --foreground: oklch(0.141 0.005 285.823);
