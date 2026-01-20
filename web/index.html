@@ -47,6 +47,8 @@
         <style>
             * { box-sizing: border-box; }
             body { margin: 0; padding: 0; }
+            
+            /* Light mode (default) */
             #root {
                 background-color: #ffffff;
                 min-height: 100vh;
@@ -70,11 +72,24 @@
                 width: auto;
             }
             #header p {
-                color: $000000;
+                color: #000000;
                 font-family: 'Geist', sans-serif;
                 font-size: 14px;
                 font-weight: 500;
                 margin: 0;
+            }
+
+            /* Dark mode */
+            @media (prefers-color-scheme: dark) {
+                #root {
+                    background-color: #000000;
+                }
+                #header img {
+                    filter: brightness(0) invert(1);
+                }
+                #header p {
+                    color: #ffffff;
+                }
             }
         </style>
     </head>
