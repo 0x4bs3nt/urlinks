@@ -16,8 +16,19 @@ class CustomTokenPairView(TokenObtainPairView):
     parser_classes = [FormParser, MultiPartParser]
 
     def post(self, request, *args, **kwargs):
-        turnstile_token = request.data.get("cf-turnstile-response", "")
-        client_ip = request.META.get("REMOTE_ADDR")
+        turnstile_token = request.data.get("cf-turnstile-response")
+        if not turnstile_token:
+            return Response(
+                {"error": "Captcha token is required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            client_ip = x_forwarded_for.split(",")[-1].strip()
+        else:
+            client_ip = request.META.get("REMOTE_ADDR", "")
+
         if not verify_turnstile_token(turnstile_token, client_ip):
             return Response(
                 {"error": "Captcha verification failed"},
@@ -54,8 +65,19 @@ class RegisterView(generics.CreateAPIView):
     parser_classes = [FormParser, MultiPartParser]
 
     def post(self, request, *args, **kwargs):
-        turnstile_token = request.data.get("cf-turnstile-response", "")
-        client_ip = request.META.get("REMOTE_ADDR")
+        turnstile_token = request.data.get("cf-turnstile-response")
+        if not turnstile_token:
+            return Response(
+                {"error": "Captcha token is required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            client_ip = x_forwarded_for.split(",")[-1].strip()
+        else:
+            client_ip = request.META.get("REMOTE_ADDR", "")
+
         if not verify_turnstile_token(turnstile_token, client_ip):
             return Response(
                 {"error": "Captcha verification failed"},

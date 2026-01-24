@@ -4,7 +4,7 @@ import requests
 from django.conf import settings
 
 
-def verify_turnstile_token(token: str, remote_ip: str | None = None) -> bool:
+def verify_turnstile_token(token: str, remote_ip: str) -> bool:
     """
     Verify a Cloudflare Turnstile token.
 
@@ -23,7 +23,7 @@ def verify_turnstile_token(token: str, remote_ip: str | None = None) -> bool:
             data={
                 "secret": secret_key,
                 "response": token,
-                **({"remoteip": remote_ip} if remote_ip else {}),
+                "remoteip": remote_ip,
             },
             timeout=10,
         )
