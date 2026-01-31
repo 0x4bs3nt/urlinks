@@ -1,47 +1,104 @@
 # Contributing to urlinks
 
-First and foremost, a massive thank you for even considering contributing to urlinks! Every contribution, no matter how small, helps make this project better for everyone. You can contribute in many ways:
+First and foremost, a massive thank you for even considering contributing to
+urlinks! Every contribution, no matter how small, helps make this project
+better for everyone. You can contribute in many ways:
 
-*   **By code:** Help us build new features, fix bugs, and improve the existing codebase.
-*   **By sharing urlinks:** Spread the word about urlinks to your friends, colleagues, and communities.
-*   **By donating:** Support our efforts on [Ko-fi](https://ko-fi.com/4bs3nt) or [Github Sponsors](https://github.com/sponsors/0x4bs3nt/).
+- **By code:** Help us build new features, fix bugs, and improve the existing
+  codebase.
+- **By sharing urlinks:** Spread the word about urlinks to your friends,
+  colleagues, and communities.
+- **By donating:** Support our efforts on [Ko-fi](https://ko-fi.com/4bs3nt) or
+  [Github Sponsors](https://github.com/sponsors/0x4bs3nt/).
 
-Please ensure you read and adhere to our [Code of Conduct](https://github.com/0x4bs3nt/urlinks/blob/dev/CODE_OF_CONDUCT.md). We want urlinks to be a welcoming and inclusive environment for everyone.
+Please ensure you read and adhere to our
+[Code of Conduct](https://github.com/0x4bs3nt/urlinks/blob/dev/CODE_OF_CONDUCT.md).
+We want urlinks to be a welcoming and inclusive environment for everyone.
 
 ## Getting Started with Code Contributions
 
-Most of the work that needs to be done on the codebase is tracked in our [GitHub Issues](https://github.com/0x4bs3nt/urlinks/issues). If you want to work on something, please check the existing issues first. If you have an idea for a new feature or improvement that isn't already listed, please open a new issue to discuss it before you start working on it. This helps prevent duplicated effort and ensures your contribution aligns with the project's goals.
+Most of the work that needs to be done on the codebase is tracked in our
+[GitHub Issues](https://github.com/0x4bs3nt/urlinks/issues). If you want to
+work on something, please check the existing issues first. If you have an idea
+for a new feature or improvement that isn't already listed, please open a new
+issue to discuss it before you start working on it. This helps prevent
+duplicated effort and ensures your contribution aligns with the project's
+goals.
 
 ## Web/Frontend Contributions
 
-When contributing to the web/frontend, please keep the following guidelines in mind:
+When contributing to the web/frontend, please keep the following guidelines
+in mind:
 
-*   **No lint or type errors:** All code submitted must be free of linting and TypeScript errors.
-*   **Package Manager:** We exclusively use [Bun](https://bun.sh/) as our package manager. Please do not use `npm`, `yarn`, or any other manager for this project.
-*   **Code Checks:** Before submitting your code, ensure it passes all checks by running `bun check`.
-*   **Components:** Only [Shadcn UI](https://ui.shadcn.com/) components should be used. If a specific component you need is not available in Shadcn UI, do not install any other component library. Instead, create a custom component to fulfill the requirement.
-*   **Styling:** Primarily use [Tailwind CSS](https://tailwindcss.com/) for all styling. If there's a special styling need that cannot be covered by Tailwind CSS, you may add it to `index.css`.
-*   **No Hardcoding:** Avoid hardcoding values directly into your components or styles. Instead, leverage the variables defined in `index.css` through Tailwind CSS.
+- **No lint or type errors:** All code submitted must be free of linting and
+  TypeScript errors.
+- **Package Manager:** We exclusively use [Bun](https://bun.sh/) as our
+  package manager. Please do not use `npm`, `yarn`, or any other manager for
+  this project.
+- **Code Checks:** Before submitting your code, ensure it passes all checks
+  by running `bun check`.
+- **Components:** Only [Shadcn UI](https://ui.shadcn.com/) components should
+  be used. If a specific component you need is not available in Shadcn UI, do
+  not install any other component library. Instead, create a custom component
+  to fulfill the requirement.
+- **Styling:** Primarily use [Tailwind CSS](https://tailwindcss.com/) for all
+  styling. If there's a special styling need that cannot be covered by
+  Tailwind CSS, you may add it to `index.css`.
+- **No Hardcoding:** Avoid hardcoding values directly into your components or
+  styles. Instead, leverage the variables defined in `index.css` through
+  Tailwind CSS.
 
 ## Backend Contributions
 
 For backend contributions, please note the following:
 
-*   **Pre-commit Hooks:** Make sure to install the pre-commit hooks by running `pre-commit install`.
-*   **Package Manager:** We use [uv](https://github.com/astral-sh/uv) as our package manager for backend dependencies.
+- **Pre-commit Hooks:** Make sure to install the pre-commit hooks by running
+  `pre-commit install`.
+- **Package Manager:** We use [uv](https://github.com/astral-sh/uv) as our
+  package manager for backend dependencies.
+
+## Versioning
+
+This project uses [Semantic Versioning](https://semver.org/). The version is
+stored in the `VERSION` file at the repository root.
+
+**Every pull request must bump the version.** Update the `VERSION` file
+according to the type of change:
+
+- **MAJOR** (e.g., `1.0.0` → `2.0.0`): Breaking changes that are not
+  backwards compatible
+- **MINOR** (e.g., `1.0.0` → `1.1.0`): New features that are backwards
+  compatible
+- **PATCH** (e.g., `1.0.0` → `1.0.1`): Bug fixes and minor improvements
+
+CI will automatically validate that your PR's version is greater than the
+current `dev` branch version.
 
 ## Commits and Pull Requests
 
-To maintain a clean and understandable commit history, please follow these guidelines:
+To maintain a clean and understandable commit history, please follow these
+guidelines:
 
-*   **Conventional Commits:** Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format for your commit messages. This includes prefixes like `feat` (for new features), `fix` (for bug fixes), `chore` (for routine tasks), `docs` (for documentation changes), etc.
-*   **Meaningful Commit Messages:** Ensure your commit messages are meaningful and clearly explain the purpose and content of the commit.
-*   **Pull Request Description:** Your pull request description should include:
-    *   A short summary of the work done.
-    *   A list of features added, bugs fixed, or improvements made.
-    *   A task list of any items that still need to be addressed within the current PR or in subsequent PRs.
-*   **Small Pull Requests:** Please avoid sending overly large pull requests. Smaller, focused pull requests are much easier to review and merge. If your changes can be broken down into multiple viable, smaller PRs, that is always preferred.
+- **Conventional Commits:** Use
+  [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+  format for your commit messages. This includes prefixes like `feat` (for
+  new features), `fix` (for bug fixes), `chore` (for routine tasks), `docs`
+  (for documentation changes), etc.
+- **Meaningful Commit Messages:** Ensure your commit messages are meaningful
+  and clearly explain the purpose and content of the commit.
+- **Version Bump:** Update the `VERSION` file to reflect the type of change
+  (see [Versioning](#versioning) above).
+- **Pull Request Description:** Your pull request description should include:
+  - A short summary of the work done.
+  - A list of features added, bugs fixed, or improvements made.
+  - A task list of any items that still need to be addressed within the
+    current PR or in subsequent PRs.
+- **Small Pull Requests:** Please avoid sending overly large pull requests.
+  Smaller, focused pull requests are much easier to review and merge. If your
+  changes can be broken down into multiple viable, smaller PRs, that is
+  always preferred.
 
 ## Questions?
 
-If you have any questions or need further clarification, please don't hesitate to reach out to me on Discord: _4bs3nt
+If you have any questions or need further clarification, please don't
+hesitate to reach out to me on Discord: \_4bs3nt

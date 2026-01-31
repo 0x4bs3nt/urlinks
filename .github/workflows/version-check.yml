@@ -1,0 +1,62 @@
+name: Version Check
+
+on:
+  pull_request:
+    branches: [dev, main]
+
+jobs:
+  version-check:
+    name: Validate VERSION
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate and compare version
+        run: |
+          PR_VERSION=$(cat VERSION)
+          echo "PR version: $PR_VERSION"
+
+          # Validate semver format
+          if [[ ! "$PR_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?(\+[a-zA-Z0-9.]+)?$ ]]; then
+            echo "::error::Invalid semantic version format: '$PR_VERSION'"
+            echo "Expected format: MAJOR.MINOR.PATCH[-prerelease][+metadata]"
+            exit 1
+          fi
+
+          # Get base branch version
+          git fetch origin dev --depth=1
+          BASE_VERSION=$(git show origin/dev:VERSION 2>/dev/null || echo "0.0.0")
+
+          echo "Base branch (dev) version: $BASE_VERSION"
+
+          # Compare versions (strip prerelease/metadata for comparison)
+          PR_CORE=$(echo "$PR_VERSION" | sed 's/[-+].*//')
+          BASE_CORE=$(echo "$BASE_VERSION" | sed 's/[-+].*//')
+
+          # Split into components
+          IFS='.' read -r PR_MAJOR PR_MINOR PR_PATCH <<< "$PR_CORE"
+          IFS='.' read -r BASE_MAJOR BASE_MINOR BASE_PATCH <<< "$BASE_CORE"
+
+          # Compare: PR version must be greater than base
+          if [[ "$PR_MAJOR" -gt "$BASE_MAJOR" ]]; then
+            echo "Version bump valid (major: $BASE_MAJOR -> $PR_MAJOR)"
+            exit 0
+          elif [[ "$PR_MAJOR" -eq "$BASE_MAJOR" && "$PR_MINOR" -gt "$BASE_MINOR" ]]; then
+            echo "Version bump valid (minor: $BASE_MINOR -> $PR_MINOR)"
+            exit 0
+          elif [[ "$PR_MAJOR" -eq "$BASE_MAJOR" && "$PR_MINOR" -eq "$BASE_MINOR" && "$PR_PATCH" -gt "$BASE_PATCH" ]]; then
+            echo "Version bump valid (patch: $BASE_PATCH -> $PR_PATCH)"
+            exit 0
+          elif [[ "$PR_MAJOR" -eq "$BASE_MAJOR" && "$PR_MINOR" -eq "$BASE_MINOR" && "$PR_PATCH" -eq "$BASE_PATCH" ]]; then
+            echo "::error::VERSION ($PR_VERSION) must be greater than dev branch ($BASE_VERSION)"
+            echo "Bump the version in the VERSION file before merging."
+            exit 1
+          else
+            echo "::error::VERSION ($PR_VERSION) is less than dev branch ($BASE_VERSION)"
+            echo "Version cannot go backwards."
+            exit 1
+          fi
