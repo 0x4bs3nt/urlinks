@@ -1,0 +1,26 @@
+[project]
+name = "freetree"
+version = "0.1.0"
+description = "Like linktree but everything is free and open source, cause nobody is paying to display 5 links on a website."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "argon2-cffi>=25.1.0",
+    "django>=6.0.1",
+    "django-cors-headers>=4.9.0",
+    "django-storages[s3]>=1.14.6",
+    "django-stubs>=5.2.8",
+    "djangorestframework>=3.16.1",
+    "djangorestframework-simplejwt>=5.5.1",
+    "drf-spectacular>=0.29.0",
+    "gunicorn>=23.0.0",
+    "pillow>=12.1.0",
+    "pre-commit>=4.5.1",
+    "psycopg2-binary>=2.9.11",
+    "pynvim>=0.6.0",
+    "python-dotenv>=1.2.1",
+    "ruff>=0.14.11",
+]
+
+[tool.ruff]
+exclude = ["**/migrations/**", "manage.py"]

@@ -1,0 +1,39 @@
+# Backend ignore
+venv/
+.venv/
+.env
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+static
+.coverage
+media/
+
+# Docker ignore
+docker/dev/backend/.env
+docker/dev/frontend/.env
+docker/production/backend/.env
+docker/production/frontend/.env
+docker/production/host-nginx-configs/
+
+# Web ignore
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Claude Code and Playwright MCP
+CLAUDE.md
+.playwright-mcp/
+.claude/
+playwright-report/
+test-results/
