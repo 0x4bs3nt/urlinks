@@ -78,28 +78,9 @@
             ]
             ++ (builtins.attrValues scripts);
 
-          # Environment variables
+          # Environment variables - only non-secret settings here
+          # All app-specific config comes from backend/.env and web/.env
           DEVENV_ROOT = builtins.toString ./.;
-
-          # Django settings
-          SECRET_KEY = "django-insecure-nix-dev-key-change-in-production";
-          DEBUG = "True";
-          ALLOWED_HOSTS = "localhost,127.0.0.1";
-          CORS_ALLOWED_ORIGINS = "http://localhost:3000,http://127.0.0.1:3000";
-          CSRF_TRUSTED_ORIGINS = "http://localhost:8000,http://127.0.0.1:8000";
-          FRONTEND_URL = "http://localhost:3000";
-
-          # Database settings
-          POSTGRES_DB = "urlinks";
-          POSTGRES_USER = "urlinks_user";
-          POSTGRES_PASSWORD = "urlinks_pass";
-          POSTGRES_HOST = "127.0.0.1";
-          POSTGRES_PORT = "5432";
-
-          # Frontend settings
-          VITE_BE_URL = "http://127.0.0.1:8000";
-
-          # UV settings
           UV_PYTHON_PREFERENCE = "system";
 
           shellHook = ''
@@ -114,16 +95,23 @@
             fi
 
             # Source .env files from backend and web directories
+            missing_env=0
             if [ -f "$DEVENV_ROOT/backend/.env" ]; then
               set -a
               source "$DEVENV_ROOT/backend/.env"
               set +a
+            else
+              echo "⚠  Missing backend/.env - copy from backend/.env.example"
+              missing_env=1
             fi
 
             if [ -f "$DEVENV_ROOT/web/.env" ]; then
               set -a
               source "$DEVENV_ROOT/web/.env"
               set +a
+            else
+              echo "⚠  Missing web/.env - copy from web/.env.example"
+              missing_env=1
             fi
 
             echo ""
