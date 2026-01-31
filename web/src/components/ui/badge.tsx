@@ -37,7 +37,8 @@ function Badge({
             data-slot="badge"
             data-variant={variant}
             className={cn(badgeVariants({ variant }), className)}
-            {...props}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            {...(props as any)}
         />
     );
 }

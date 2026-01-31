@@ -86,7 +86,8 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPri
             data-error={!!error}
             className={cn('data-[error=true]:text-destructive', className)}
             htmlFor={formItemId}
-            {...props}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            {...(props as any)}
         />
     );
 }
