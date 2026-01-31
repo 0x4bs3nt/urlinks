@@ -20,7 +20,7 @@ export default function LandingPage() {
 
     return (
         <div id="header">
-            <img src="public/urlinks.svg" alt="Urlinks" />
+            <img src="/urlinks.svg" alt="Urlinks" />
             <p>Free & Open Source Link-in-Bio Tool - Coming soon</p>
         </div>
         // <div className="min-h-screen">
