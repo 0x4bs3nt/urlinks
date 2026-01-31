@@ -3,6 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+from project.version import get_version
 
 load_dotenv()
 
@@ -103,9 +104,9 @@ PASSWORD_HASHERS = [
 ]
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "FreeTree API",
-    "DESCRIPTION": "API documentation for FreeTree",
-    "VERSION": "0.1.0",
+    "TITLE": "urlinks API",
+    "DESCRIPTION": "API documentation for urlinks",
+    "VERSION": get_version(),
     "SERVE_INCLUDE_SCHEMA": False,
     "PUBLIC_DOCS": True,
     "COMPONENT_SPLIT_REQUEST": True,
