@@ -6,8 +6,14 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
@@ -49,38 +55,28 @@
               -d postgres \
               -c "CREATE DATABASE $POSTGRES_DB OWNER $POSTGRES_USER;"
 
-            # Run migrations
-            cd "$DEVENV_ROOT/backend"
-            python manage.py migrate
-
             echo "Database reset complete!"
           '';
         };
       in
       {
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            # Python ecosystem
-            python313
-            uv
-
-            # JavaScript ecosystem
-            bun
-            nodejs_22
-
-            # Database
-            postgresql_16
-
-            # Process management
-            process-compose
-
-            # Development tools
-            git
-            jq
-            curl
-            httpie
-            ruff
-          ] ++ (builtins.attrValues scripts);
+          buildInputs =
+            with pkgs;
+            [
+              python313
+              uv
+              bun
+              nodejs_22
+              postgresql_16
+              process-compose
+              git
+              jq
+              curl
+              httpie
+              ruff
+            ]
+            ++ (builtins.attrValues scripts);
 
           # Environment variables
           DEVENV_ROOT = builtins.toString ./.;
