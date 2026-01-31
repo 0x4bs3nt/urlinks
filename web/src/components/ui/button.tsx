@@ -59,7 +59,8 @@ function Button({
             disabled={loading}
             data-slot="button"
             className={cn(buttonVariants({ variant, size, className }))}
-            {...props}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            {...(props as any)}
         >
             {loading ? <LoaderCircle className="h-5 w-5 animate-spin" /> : props.children}
         </Comp>
