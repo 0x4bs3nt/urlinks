@@ -9,6 +9,11 @@ port: 9080
 # Set working directory to project root
 working_dir: ${DEVENV_ROOT:-.}
 
+# Load environment from .env files
+environment:
+  - "backend/.env"
+  - "web/.env"
+
 processes:
   # ============================================================================
   # PostgreSQL Database
