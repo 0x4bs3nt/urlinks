@@ -6,6 +6,7 @@ interface RegisterData {
     email: string;
     password: string;
     confirm_password: string;
+    'cf-turnstile-response': string;
 }
 
 interface RegisterResponse {

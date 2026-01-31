@@ -19,6 +19,7 @@ dependencies = [
     "psycopg2-binary>=2.9.11",
     "pynvim>=0.6.0",
     "python-dotenv>=1.2.1",
+    "requests>=2.32.5",
     "ruff>=0.14.11",
 ]
 

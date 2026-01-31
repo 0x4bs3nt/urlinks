@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import z from 'zod';
@@ -10,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { Turnstile } from '../ui/turnstile';
 import { toast } from 'sonner';
 
 const formSchema = z
@@ -29,6 +31,7 @@ type FormValues = z.infer<typeof formSchema>;
 const RegisterForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
     const { mutate, isPending } = useRegisterUser();
     const navigate = useNavigate();
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
@@ -41,13 +44,20 @@ const RegisterForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'d
     });
 
     const onSubmit = (data: FormValues) => {
-        mutate(data, {
-            onSuccess: () => {
-                toast.success('Account created successfully! Please log in.');
+        if (!turnstileToken) {
+            return;
+        }
 
-                navigate('/login');
-            },
-        });
+        mutate(
+            { ...data, 'cf-turnstile-response': turnstileToken },
+            {
+                onSuccess: () => {
+                    toast.success('Account created successfully! Please log in.');
+
+                    navigate('/login');
+                },
+            }
+        );
     };
 
     return (
@@ -119,7 +129,14 @@ const RegisterForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'d
                                     )}
                                 />
 
-                                <Button loading={isPending} type="submit" className="w-full">
+                                <div className="mb-4">
+                                    <Turnstile
+                                        onSuccess={(token) => setTurnstileToken(token)}
+                                        onExpire={() => setTurnstileToken(null)}
+                                    />
+                                </div>
+
+                                <Button loading={isPending} type="submit" className="w-full" disabled={!turnstileToken}>
                                     Create Account
                                 </Button>
                             </form>

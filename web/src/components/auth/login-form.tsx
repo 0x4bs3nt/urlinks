@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { z } from 'zod';
@@ -12,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
+import { Turnstile } from '../ui/turnstile';
 import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
@@ -24,6 +26,7 @@ type FormValues = z.infer<typeof formSchema>;
 const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) => {
     const { mutate, isPending } = useLoginUser();
     const navigate = useNavigate();
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
     const setAll = useAuthStore((state) => state.setAll);
 
@@ -36,20 +39,27 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
     });
 
     const onSubmit = (data: FormValues) => {
-        mutate(data, {
-            onSuccess: (res) => {
-                setTokens(res);
-                setHeaderToken(res.access);
+        if (!turnstileToken) {
+            return;
+        }
 
-                setAll({
-                    id: res.id,
-                    username: res.username || data.username,
-                    email: res.email,
-                    access: res.access,
-                    refresh: res.refresh,
-                });
-            },
-        });
+        mutate(
+            { ...data, 'cf-turnstile-response': turnstileToken },
+            {
+                onSuccess: (res) => {
+                    setTokens(res);
+                    setHeaderToken(res.access);
+
+                    setAll({
+                        id: res.id,
+                        username: res.username || data.username,
+                        email: res.email,
+                        access: res.access,
+                        refresh: res.refresh,
+                    });
+                },
+            }
+        );
     };
 
     return (
@@ -95,7 +105,13 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
                                         </FormItem>
                                     )}
                                 />
-                                <Button loading={isPending} type="submit" className="w-full">
+                                <div className="mb-4">
+                                    <Turnstile
+                                        onSuccess={(token) => setTurnstileToken(token)}
+                                        onExpire={() => setTurnstileToken(null)}
+                                    />
+                                </div>
+                                <Button loading={isPending} type="submit" className="w-full" disabled={!turnstileToken}>
                                     Login
                                 </Button>
                             </form>
