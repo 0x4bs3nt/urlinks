@@ -28,12 +28,46 @@ Don't forget to follow the [Code of Conduct](https://github.com/0x4bs3nt/freetre
 
 ## Running locally
 
-This is a Django Rest Framework and Vite project. Unfortunately, we haven't had the time to add a Docker setup just
-yet, so running the application locally means manually setting up Django and the Vite app. Luckily, this isn't hard.
+This is a Django Rest Framework and Vite project.
 
-### Django / Django Rest Framework
+### Using Nix (Recommended)
 
-Using `uv` is a must for this project, we do not use other package managers here.
+If you have [Nix](https://nixos.org/) installed with flakes enabled, this is the easiest way to get started:
+
+1. Clone the repository and `cd` into it
+2. Allow direnv (if you use it): `direnv allow`
+   - Or manually enter the shell: `nix develop --impure`
+3. Set up your environment files:
+   ```bash
+   cp backend/.env.example backend/.env
+   cp web/.env.example web/.env
+   ```
+4. Install dependencies:
+   ```bash
+   cd backend && uv sync && cd ..
+   cd web && bun install && cd ..
+   ```
+5. Start all services:
+   ```bash
+   pc-up
+   ```
+
+This will automatically start PostgreSQL, run database initialization, and launch both the backend and frontend servers.
+
+**Available commands:**
+
+- `pc-up` - Start all services (PostgreSQL, Django, Vite)
+- `pc-down` - Stop all services
+- `db-psql` - Connect to the database
+- `db-reset` - Drop and recreate the database
+
+### Manual Setup
+
+If you're not using Nix, you can set up the project manually:
+
+#### Django / Django Rest Framework
+
+Using `uv` is recommended for this project.
 
 1. After pulling the project, head over to the `/backend/` directory, and run `uv sync`. This will initialize a virtual environment for the backend and install the dependencies.
 2. Create a PostgreSQL database locally for freetree.
@@ -42,9 +76,9 @@ Using `uv` is a must for this project, we do not use other package managers here
 5. Make sure pre commit hooks are installed by running `pre-commit install`.
 6. Start the backend service with `python manage.py runserver`.
 
-### React / Vite
+#### React / Vite
 
-Using `bun` is a must for this project, we do not use other package managers or runtimes here.
+Using `bun` is recommended for this project.
 
 1. After pulling the project, head over to the `web` directory and run `bun install`. This will install all dependencies for the project.
 2. Fill out the `.env` according to the `.env.example` file, the `.env` should be located at the same place and level as the example one.

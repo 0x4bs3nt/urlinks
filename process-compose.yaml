@@ -1,0 +1,119 @@
+version: "0.5"
+
+log_level: info
+log_location: .data/process-compose.log
+
+# Use a non-standard port for the API to avoid conflicts
+port: 9080
+
+# Set working directory to project root
+working_dir: ${DEVENV_ROOT:-.}
+
+# Load environment from .env files
+environment:
+  - "backend/.env"
+  - "web/.env"
+
+processes:
+  # ============================================================================
+  # PostgreSQL Database
+  # ============================================================================
+  postgres:
+    command: |
+      PGDATA="$PWD/.data/postgres"
+
+      # Initialize database if needed
+      if [ ! -d "$PGDATA" ]; then
+        echo "Initializing PostgreSQL database..."
+        initdb -D "$PGDATA" --auth=trust --no-locale --encoding=UTF8
+
+        # Configure PostgreSQL (TCP only, no unix socket)
+        echo "listen_addresses = 'localhost'" >> "$PGDATA/postgresql.conf"
+        echo "port = 5432" >> "$PGDATA/postgresql.conf"
+        echo "unix_socket_directories = ''" >> "$PGDATA/postgresql.conf"
+      fi
+
+      # Start PostgreSQL
+      postgres -D "$PGDATA"
+    readiness_probe:
+      exec:
+        command: pg_isready -h localhost -p 5432 -d postgres
+      initial_delay_seconds: 2
+      period_seconds: 2
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 20
+    shutdown:
+      command: pg_ctl -D "$PWD/.data/postgres" stop -m fast
+      timeout_seconds: 10
+
+  # ============================================================================
+  # Database Initialization (runs once)
+  # ============================================================================
+  postgres-init:
+    command: |
+      # Wait a moment for postgres to be fully ready
+      sleep 2
+
+      # Create user and database if they don't exist
+      psql -h localhost -p 5432 -U $(whoami) -d postgres -tc "SELECT 1 FROM pg_roles WHERE rolname='${POSTGRES_USER}'" | grep -q 1 || \
+        psql -h localhost -p 5432 -U $(whoami) -d postgres -c "CREATE USER ${POSTGRES_USER} WITH PASSWORD '${POSTGRES_PASSWORD}' CREATEDB;"
+
+      psql -h localhost -p 5432 -U $(whoami) -d postgres -tc "SELECT 1 FROM pg_database WHERE datname='${POSTGRES_DB}'" | grep -q 1 || \
+        psql -h localhost -p 5432 -U $(whoami) -d postgres -c "CREATE DATABASE ${POSTGRES_DB} OWNER ${POSTGRES_USER};"
+
+      echo "PostgreSQL setup complete: database '${POSTGRES_DB}' with user '${POSTGRES_USER}'"
+    depends_on:
+      postgres:
+        condition: process_healthy
+    availability:
+      restart: "no"
+
+  # ============================================================================
+  # Django Backend
+  # ============================================================================
+  backend:
+    command: |
+      cd backend
+
+      # Activate virtual environment if it exists
+      if [ -f .venv/bin/activate ]; then
+        source .venv/bin/activate
+      fi
+
+      # Start development server
+      echo "Starting Django development server on port 8000..."
+      exec python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      postgres-init:
+        condition: process_completed_successfully
+    readiness_probe:
+      http_get:
+        host: 127.0.0.1
+        port: 8000
+        path: /core/health/
+      initial_delay_seconds: 5
+      period_seconds: 30
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+
+  # ============================================================================
+  # Vite Frontend
+  # ============================================================================
+  frontend:
+    command: |
+      cd web
+
+      # Install dependencies if node_modules doesn't exist or is outdated
+      if [ ! -d "node_modules" ] || [ "package.json" -nt "node_modules" ]; then
+        echo "Installing frontend dependencies..."
+        bun install
+      fi
+
+      # Start Vite development server
+      echo "Starting Vite development server on port 3000..."
+      exec bun run dev
+    depends_on:
+      backend:
+        condition: process_healthy

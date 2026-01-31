@@ -1,0 +1,101 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 20s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - urlinks-network
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: docker/production/backend/Dockerfile
+    image: urlinks-backend:latest
+    env_file:
+      - .env
+    ports:
+      - "${BACKEND_PORT:-9000}:80"
+    volumes:
+      - backend_static:/app/static
+      - backend_media:/app/media
+    networks:
+      - urlinks-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/core/health/"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 15s
+        order: start-first
+        failure_action: rollback
+        monitor: 30s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+  frontend:
+    build:
+      context: ../..
+      dockerfile: docker/production/frontend/Dockerfile
+      args:
+        VITE_BE_URL: ${VITE_BE_URL}
+    image: urlinks-frontend:latest
+    env_file:
+      - .env
+    ports:
+      - "${FRONTEND_PORT:-4000}:80"
+    networks:
+      - urlinks-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+        failure_action: rollback
+        monitor: 20s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+volumes:
+  postgres_data:
+    name: urlinks_postgres_data
+    external: true
+  backend_static:
+    name: urlinks_backend_static
+    external: true
+  backend_media:
+    name: urlinks_backend_media
+    external: true
+
+networks:
+  urlinks-network:
+    driver: overlay

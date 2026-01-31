@@ -82,20 +82,6 @@ DATABASES = {
     }
 }
 
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "endpoint_url": os.getenv("R2_ENDPOINT_URL"),
-            "access_key": os.getenv("R2_ACCESS_KEY"),
-            "secret_key": os.getenv("R2_SECRET_KEY"),
-            "bucket_name": os.getenv("R2_BUCKET_NAME"),
-            "signature_version": "s3v4",
-        },
-    },
-    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
-}
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -170,5 +156,36 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# File Storage Configuration
+if DEBUG:
+    # Local development: use filesystem storage
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+    # Ensure media directory exists in development
+    os.makedirs(MEDIA_ROOT, exist_ok=True)
+else:
+    # Production: use Cloudflare R2 (S3-compatible)
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "endpoint_url": os.getenv("R2_ENDPOINT_URL"),
+                "access_key": os.getenv("R2_ACCESS_KEY"),
+                "secret_key": os.getenv("R2_SECRET_KEY"),
+                "bucket_name": os.getenv("R2_BUCKET_NAME"),
+                "signature_version": "s3v4",
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

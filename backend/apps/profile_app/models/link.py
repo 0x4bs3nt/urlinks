@@ -39,3 +39,8 @@ class Link(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.page.display_name})"
+
+    def delete(self, *args, **kwargs):
+        if self.icon:
+            self.icon.delete(save=False)
+        return super().delete(*args, **kwargs)
