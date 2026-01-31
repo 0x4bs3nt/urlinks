@@ -37,3 +37,14 @@ CLAUDE.md
 .claude/
 playwright-report/
 test-results/
+
+# Nix
+.direnv/
+result
+result-*
+
+# Development data (PostgreSQL, logs)
+.data/
+
+# Local environment overrides
+.env.local
