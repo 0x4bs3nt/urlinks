@@ -7,28 +7,28 @@ interface FAQ {
 
 const faqs: FAQ[] = [
     {
-        question: 'Is freetree really free?',
-        answer: 'Yes, absolutely! Freetree is completely free and open source. No hidden fees, no premium plans, no paywalls. Everything you see is available to everyone.',
+        question: 'Is urlinks really free?',
+        answer: 'Yes, absolutely! Urlinks is completely free and open source. No hidden fees, no premium plans, no paywalls. Everything you see is available to everyone.',
     },
     {
-        question: 'How does freetree compare to Linktree?',
-        answer: "Freetree offers all the core features of Linktree without any cost. You get unlimited links, custom themes, analytics, and more. Since it's open source, you can even host it yourself if you prefer complete control.",
+        question: 'How does urlinks compare to Linktree?',
+        answer: "Urlinks offers all the core features of Linktree without any cost. You get unlimited links, custom themes, analytics, and more. Since it's open source, you can even host it yourself if you prefer complete control.",
     },
     {
         question: 'Can I use a custom domain?',
-        answer: 'Yes! You can connect your own custom domain to your freetree page, making it truly yours.',
+        answer: 'Yes! You can connect your own custom domain to your urlinks page, making it truly yours.',
     },
     {
         question: 'Is my data safe?',
-        answer: "Your privacy is our priority. Freetree is open source, meaning anyone can audit the code. We don't sell your data or track you beyond basic analytics that you control.",
+        answer: "Your privacy is our priority. Urlinks is open source, meaning anyone can audit the code. We don't sell your data or track you beyond basic analytics that you control.",
     },
     {
         question: 'How can I support the project?',
-        answer: 'While freetree is free to use, running the infrastructure and development takes resources. You can support us through donations on our support page, contribute code on GitHub, or spread the word!',
+        answer: 'While urlinks is free to use, running the infrastructure and development takes resources. You can support us through donations on our support page, contribute code on GitHub, or spread the word!',
     },
     {
-        question: 'Can I self-host freetree?',
-        answer: "Absolutely! As an open source project, you're free to host freetree on your own infrastructure. Check out our GitHub repository for deployment instructions.",
+        question: 'Can I self-host urlinks?',
+        answer: "Absolutely! As an open source project, you're free to host urlinks on your own infrastructure. Check out our GitHub repository for deployment instructions.",
     },
 ];
 

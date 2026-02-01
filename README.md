@@ -2,7 +2,7 @@
 
 # urlinks
 
-![GitHub License](https://img.shields.io/github/license/0x4bs3nt/freetree)
+![GitHub License](https://img.shields.io/github/license/0x4bs3nt/urlinks)
 
 <img width="1200" height="400" alt="Cover image" src="https://github.com/user-attachments/assets/4ef50368-439d-4fac-b48d-74e36c561195" />
 
@@ -22,9 +22,9 @@ but everything is free and open source, cause nobody is paying to display 5 link
 
 Contributions are always welcome!
 
-See [CONTRIBUTING.md](https://github.com/0x4bs3nt/freetree/blob/dev/CONTRIBUTING.md) to get started.
+See [CONTRIBUTING.md](https://github.com/0x4bs3nt/urlinks/blob/dev/CONTRIBUTING.md) to get started.
 
-Don't forget to follow the [Code of Conduct](https://github.com/0x4bs3nt/freetree/blob/dev/CODE_OF_CONDUCT.md)
+Don't forget to follow the [Code of Conduct](https://github.com/0x4bs3nt/urlinks/blob/dev/CODE_OF_CONDUCT.md)
 
 ## Running locally
 
@@ -70,7 +70,7 @@ If you're not using Nix, you can set up the project manually:
 Using `uv` is recommended for this project.
 
 1. After pulling the project, head over to the `/backend/` directory, and run `uv sync`. This will initialize a virtual environment for the backend and install the dependencies.
-2. Create a PostgreSQL database locally for freetree.
+2. Create a PostgreSQL database locally for urlinks.
 3. Fill out the `.env` according to the `.env.example` file, the `.env` should be located at the same place and level as the example one.
 4. Migrate the tables by running `python manage.py migrate`.
 5. Make sure pre commit hooks are installed by running `pre-commit install`.

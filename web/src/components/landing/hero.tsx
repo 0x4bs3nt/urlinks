@@ -34,11 +34,7 @@ export function Hero() {
                                 </RouterLink>
                             </Button>
                             <Button size="lg" variant="outline" className="text-lg h-12 px-8" asChild>
-                                <a
-                                    href="https://github.com/0x4bs3nt/freetree"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                <a href="https://github.com/0x4bs3nt/urlinks" target="_blank" rel="noopener noreferrer">
                                     <Github className="mr-2 size-5" />
                                     View on GitHub
                                 </a>

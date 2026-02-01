@@ -84,7 +84,7 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <div className="flex items-center gap-2 px-2 py-1.5">
                     <LayersIcon className="size-5 text-sidebar-foreground" />
                     <span className="text-base font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-                        freetree
+                        urlinks
                     </span>
                 </div>
             </SidebarHeader>
@@ -237,7 +237,7 @@ function SiteHeader() {
                         <span>Donate</span>
                     </NavLink>
                     <a
-                        href="https://github.com/0x4bs3nt/freetree"
+                        href="https://github.com/0x4bs3nt/urlinks"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"

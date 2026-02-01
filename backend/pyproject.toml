@@ -1,5 +1,5 @@
 [project]
-name = "freetree"
+name = "urlinks"
 version = "0.1.0"
 description = "Like linktree but everything is free and open source, cause nobody is paying to display 5 links on a website."
 readme = "README.md"
