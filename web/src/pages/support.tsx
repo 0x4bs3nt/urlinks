@@ -10,14 +10,14 @@ const otherWays = [
     {
         icon: Code,
         title: 'Contribute Code',
-        description: 'Help us build freetree by contributing code, fixing bugs, or improving documentation.',
+        description: 'Help us build urlinks by contributing code, fixing bugs, or improving documentation.',
         action: 'View GitHub',
-        href: 'https://github.com/0x4bs3nt/freetree',
+        href: 'https://github.com/0x4bs3nt/urlinks',
     },
     {
         icon: Heart,
         title: 'Spread the Word',
-        description: 'Share freetree with your friends, on social media, or write about it on your blog.',
+        description: 'Share urlinks with your friends, on social media, or write about it on your blog.',
         action: 'Share Now',
         href: '#',
     },
@@ -40,11 +40,11 @@ export default function SupportPage() {
                         <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
                             Help keep{' '}
                             <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                                freetree free
+                                urlinks free
                             </span>
                         </h1>
                         <p className="text-xl text-muted-foreground md:text-2xl max-w-2xl mx-auto">
-                            Freetree is free and open source, but running infrastructure and development costs money.
+                            Urlinks is free and open source, but running infrastructure and development costs money.
                             Your support helps us keep the lights on and improve the platform for everyone.
                         </p>
                     </div>
@@ -63,7 +63,7 @@ export default function SupportPage() {
                             <div className="space-y-3">
                                 <h2 className="text-3xl font-bold">Support us on Ko-fi</h2>
                                 <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-                                    Buy us a coffee and help keep freetree running. Every contribution goes directly
+                                    Buy us a coffee and help keep urlinks running. Every contribution goes directly
                                     towards server costs and development.
                                 </p>
                             </div>
@@ -86,7 +86,7 @@ export default function SupportPage() {
                     <div className="space-y-4 text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                         <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">Other ways to support</h2>
                         <p className="text-xl text-muted-foreground">
-                            Can't donate? There are other ways to help freetree thrive.
+                            Can't donate? There are other ways to help urlinks thrive.
                         </p>
                     </div>
 
@@ -123,7 +123,7 @@ export default function SupportPage() {
                     </div>
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Thank you for your support!</h2>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Every contribution, big or small, helps us keep freetree free and open source for everyone. We
+                        Every contribution, big or small, helps us keep urlinks free and open source for everyone. We
                         couldn't do this without you.
                     </p>
                 </div>

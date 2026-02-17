@@ -1,6 +1,6 @@
 import { Youtube, Twitter, Instagram, Facebook, Linkedin, Github, Globe } from 'lucide-react';
 
-export interface FreetreeLink {
+export interface UrlinksLink {
     id: string;
     title: string;
     url: string;
@@ -8,15 +8,15 @@ export interface FreetreeLink {
     platform?: string;
 }
 
-export interface FreetreeProfile {
+export interface UrlinksProfile {
     displayName: string;
     bio?: string;
     showWatermark?: boolean;
-    links: FreetreeLink[];
+    links: UrlinksLink[];
 }
 
-interface FreetreePreviewProps {
-    profile: FreetreeProfile;
+interface UrlinksPreviewProps {
+    profile: UrlinksProfile;
 }
 
 const platformIcons = {
@@ -29,7 +29,7 @@ const platformIcons = {
     website: Globe,
 };
 
-export function FreetreePreview({ profile }: FreetreePreviewProps) {
+export function UrlinksPreview({ profile }: UrlinksPreviewProps) {
     return (
         <div className="relative h-full w-full bg-muted/30 rounded-xl p-4 flex items-center justify-center">
             {/* Mock Phone Frame */}
@@ -48,7 +48,7 @@ export function FreetreePreview({ profile }: FreetreePreviewProps) {
                         </div>
                         <h1 className="text-lg font-bold text-foreground mb-1">@{profile.displayName || 'username'}</h1>
                         <p className="text-xs text-muted-foreground mb-2">
-                            freetree.dev/{profile.displayName || 'username'}
+                            urlinks.app/{profile.displayName || 'username'}
                         </p>
                         {profile.bio && (
                             <p className="text-sm text-foreground/80 px-2 leading-relaxed">{profile.bio}</p>
@@ -112,12 +112,12 @@ export function FreetreePreview({ profile }: FreetreePreviewProps) {
                             <p className="text-xs text-muted-foreground/60">
                                 Powered by{' '}
                                 <a
-                                    href="https://github.com/0x4bs3nt/freetree"
+                                    href="https://github.com/0x4bs3nt/urlinks"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="underline hover:text-primary transition-colors"
                                 >
-                                    freetree
+                                    urlinks
                                 </a>
                             </p>
                         </div>

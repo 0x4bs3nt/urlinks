@@ -10,7 +10,7 @@ const LoginPage = () => {
                     <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
                         <GalleryVerticalEnd className="size-5" />
                     </div>
-                    freetree
+                    urlinks
                 </div>
                 <LoginForm />
             </div>

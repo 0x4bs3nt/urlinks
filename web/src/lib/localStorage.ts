@@ -1,7 +1,7 @@
 import type { AuthTokens } from '@/consts/types/auth';
 
 export const fetchTokens = (): AuthTokens | null => {
-    const tokensString = localStorage.getItem('freetree_tokens');
+    const tokensString = localStorage.getItem('urlinks_tokens');
 
     if (!tokensString) {
         return null;
@@ -14,9 +14,9 @@ export const fetchTokens = (): AuthTokens | null => {
     }
 };
 
-export const removeTokens = () => localStorage.removeItem('freetree_tokens');
+export const removeTokens = () => localStorage.removeItem('urlinks_tokens');
 
-export const setTokens = (data: AuthTokens) => localStorage.setItem('freetree_tokens', JSON.stringify(data));
+export const setTokens = (data: AuthTokens) => localStorage.setItem('urlinks_tokens', JSON.stringify(data));
 
 export const setLsAccess = (token: string) => {
     const tokens = fetchTokens();

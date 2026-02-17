@@ -93,10 +93,10 @@ const Header = () => {
                             }}
                         >
                             <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                                <span className="text-primary-foreground font-bold text-sm">F</span>
+                                <span className="text-primary-foreground font-bold text-sm">U</span>
                             </div>
                             <span className="text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
-                                freetree
+                                urlinks
                             </span>
                         </a>
 

@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FreetreePreview, type FreetreeLink, type FreetreeProfile } from '@/components/freetree-preview';
+import { UrlinksPreview, type UrlinksLink, type UrlinksProfile } from '@/components/urlinks-preview';
 
 const socialPlatforms = [
     { value: 'website', label: 'Website' },
@@ -22,7 +22,7 @@ const socialPlatforms = [
 ];
 
 export default function DashboardHome() {
-    const [profile, setProfile] = useState<FreetreeProfile>({
+    const [profile, setProfile] = useState<UrlinksProfile>({
         displayName: '',
         bio: '',
         showWatermark: true,
@@ -30,7 +30,7 @@ export default function DashboardHome() {
     });
 
     const addLink = () => {
-        const newLink: FreetreeLink = {
+        const newLink: UrlinksLink = {
             id: Date.now().toString(),
             title: '',
             url: '',
@@ -44,7 +44,7 @@ export default function DashboardHome() {
         }));
     };
 
-    const updateLink = (id: string, field: keyof FreetreeLink, value: string) => {
+    const updateLink = (id: string, field: keyof UrlinksLink, value: string) => {
         setProfile((prev) => ({
             ...prev,
             links: prev.links.map((link) => (link.id === id ? { ...link, [field]: value } : link)),
@@ -89,7 +89,7 @@ export default function DashboardHome() {
                                 </Label>
                                 <div className="relative">
                                     <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
-                                        freetree.dev/
+                                        urlinks.app/
                                     </div>
                                     <Input
                                         id="displayName"
@@ -130,13 +130,13 @@ export default function DashboardHome() {
                     <Card className="border-border bg-card shadow-sm hover:shadow-md transition-shadow">
                         <CardHeader className="pb-2">
                             <CardTitle>Branding</CardTitle>
-                            <CardDescription>Control how freetree branding appears on your page</CardDescription>
+                            <CardDescription>Control how urlinks branding appears on your page</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <div className="flex items-center justify-between rounded-lg border border-border p-4">
                                 <div className="space-y-0.5">
                                     <Label htmlFor="watermark" className="font-medium text-foreground">
-                                        Show "Powered by freetree"
+                                        Show "Powered by urlinks"
                                     </Label>
                                     <p className="text-xs text-muted-foreground">
                                         Display a small credit link to support the project
@@ -293,10 +293,10 @@ export default function DashboardHome() {
                 <div className="hidden lg:flex flex-col sticky top-0 h-[calc(100vh-7rem)]">
                     <div className="mb-4">
                         <h2 className="text-lg font-bold text-foreground mb-1">Live Preview</h2>
-                        <p className="text-sm text-muted-foreground">See how your freetree page looks in real-time</p>
+                        <p className="text-sm text-muted-foreground">See how your urlinks page looks in real-time</p>
                     </div>
                     <div className="flex-1 min-h-0">
-                        <FreetreePreview profile={profile} />
+                        <UrlinksPreview profile={profile} />
                     </div>
                 </div>
             </div>

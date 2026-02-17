@@ -333,49 +333,6 @@ wheels = [
 ]
 
 [[package]]
-name = "freetree"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "argon2-cffi" },
-    { name = "django" },
-    { name = "django-cors-headers" },
-    { name = "django-storages", extra = ["s3"] },
-    { name = "django-stubs" },
-    { name = "djangorestframework" },
-    { name = "djangorestframework-simplejwt" },
-    { name = "drf-spectacular" },
-    { name = "gunicorn" },
-    { name = "pillow" },
-    { name = "pre-commit" },
-    { name = "psycopg2-binary" },
-    { name = "pynvim" },
-    { name = "python-dotenv" },
-    { name = "requests" },
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "argon2-cffi", specifier = ">=25.1.0" },
-    { name = "django", specifier = ">=6.0.1" },
-    { name = "django-cors-headers", specifier = ">=4.9.0" },
-    { name = "django-storages", extras = ["s3"], specifier = ">=1.14.6" },
-    { name = "django-stubs", specifier = ">=5.2.8" },
-    { name = "djangorestframework", specifier = ">=3.16.1" },
-    { name = "djangorestframework-simplejwt", specifier = ">=5.5.1" },
-    { name = "drf-spectacular", specifier = ">=0.29.0" },
-    { name = "gunicorn", specifier = ">=23.0.0" },
-    { name = "pillow", specifier = ">=12.1.0" },
-    { name = "pre-commit", specifier = ">=4.5.1" },
-    { name = "psycopg2-binary", specifier = ">=2.9.11" },
-    { name = "pynvim", specifier = ">=0.6.0" },
-    { name = "python-dotenv", specifier = ">=1.2.1" },
-    { name = "requests", specifier = ">=2.32.5" },
-    { name = "ruff", specifier = ">=0.14.11" },
-]
-
-[[package]]
 name = "greenlet"
 version = "3.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -919,6 +876,49 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/98/60/f174043244c5306c9988380d2cb10009f91563fc4b31293d27e17201af56/uritemplate-4.2.0.tar.gz", hash = "sha256:480c2ed180878955863323eea31b0ede668795de182617fef9c6ca09e6ec9d0e", size = 33267, upload-time = "2025-06-02T15:12:06.318Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a9/99/3ae339466c9183ea5b8ae87b34c0b897eda475d2aec2307cae60e5cd4f29/uritemplate-4.2.0-py3-none-any.whl", hash = "sha256:962201ba1c4edcab02e60f9a0d3821e82dfc5d2d6662a21abd533879bdb8a686", size = 11488, upload-time = "2025-06-02T15:12:03.405Z" },
+]
+
+[[package]]
+name = "urlinks"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "argon2-cffi" },
+    { name = "django" },
+    { name = "django-cors-headers" },
+    { name = "django-storages", extra = ["s3"] },
+    { name = "django-stubs" },
+    { name = "djangorestframework" },
+    { name = "djangorestframework-simplejwt" },
+    { name = "drf-spectacular" },
+    { name = "gunicorn" },
+    { name = "pillow" },
+    { name = "pre-commit" },
+    { name = "psycopg2-binary" },
+    { name = "pynvim" },
+    { name = "python-dotenv" },
+    { name = "requests" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "argon2-cffi", specifier = ">=25.1.0" },
+    { name = "django", specifier = ">=6.0.1" },
+    { name = "django-cors-headers", specifier = ">=4.9.0" },
+    { name = "django-storages", extras = ["s3"], specifier = ">=1.14.6" },
+    { name = "django-stubs", specifier = ">=5.2.8" },
+    { name = "djangorestframework", specifier = ">=3.16.1" },
+    { name = "djangorestframework-simplejwt", specifier = ">=5.5.1" },
+    { name = "drf-spectacular", specifier = ">=0.29.0" },
+    { name = "gunicorn", specifier = ">=23.0.0" },
+    { name = "pillow", specifier = ">=12.1.0" },
+    { name = "pre-commit", specifier = ">=4.5.1" },
+    { name = "psycopg2-binary", specifier = ">=2.9.11" },
+    { name = "pynvim", specifier = ">=0.6.0" },
+    { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "requests", specifier = ">=2.32.5" },
+    { name = "ruff", specifier = ">=0.14.11" },
 ]
 
 [[package]]
