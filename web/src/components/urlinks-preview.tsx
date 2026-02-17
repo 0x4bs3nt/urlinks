@@ -48,7 +48,7 @@ export function UrlinksPreview({ profile }: UrlinksPreviewProps) {
                         </div>
                         <h1 className="text-lg font-bold text-foreground mb-1">@{profile.displayName || 'username'}</h1>
                         <p className="text-xs text-muted-foreground mb-2">
-                            urlinks.dev/{profile.displayName || 'username'}
+                            urlinks.app/{profile.displayName || 'username'}
                         </p>
                         {profile.bio && (
                             <p className="text-sm text-foreground/80 px-2 leading-relaxed">{profile.bio}</p>

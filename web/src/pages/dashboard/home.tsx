@@ -89,7 +89,7 @@ export default function DashboardHome() {
                                 </Label>
                                 <div className="relative">
                                     <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">
-                                        urlinks.dev/
+                                        urlinks.app/
                                     </div>
                                     <Input
                                         id="displayName"
