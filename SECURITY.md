@@ -2,6 +2,7 @@
 
 ## Reporting a Vulnerability
 
-Please diclose any found vulnerabilites ethically, by reporting it discretely to hi@4bs3nt.com.
+Please report your findings on the Github Security Advisory.
+(https://github.com/0x4bs3nt/urlinks/security/advisories/new)
 
 You may disclose your findings publicly, after the security vulnerability has been fixed. Thank you.
