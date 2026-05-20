@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 
 import {
     LayersIcon,
@@ -37,7 +37,9 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { useAuthStore } from '@/store/auth';
+import { removeHeaderToken } from '@/axios';
+import { useLogout } from '@/services/auth/session';
+import { clearAuthStore, useAuthStore } from '@/store/auth';
 
 const navMain = [
     {
@@ -146,11 +148,21 @@ function NavMain({
 }
 
 function NavUser() {
+    const navigate = useNavigate();
     const authStore = useAuthStore();
     const username = authStore.username;
     const email = authStore.email;
+    const logoutMutation = useLogout();
 
-    const logout = authStore.logout;
+    const logout = async () => {
+        try {
+            await logoutMutation.mutateAsync();
+        } finally {
+            removeHeaderToken();
+            clearAuthStore();
+            navigate('/login');
+        }
+    };
 
     return (
         <SidebarMenu>
@@ -198,7 +210,7 @@ function NavUser() {
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => navigate('/dashboard/account/sessions')}>
                                 <UserCircleIcon />
                                 Account
                             </DropdownMenuItem>
@@ -237,7 +249,7 @@ function SiteHeader() {
                         <span>Donate</span>
                     </NavLink>
                     <a
-                        href="https://github.com/0x4bs3nt/urlinks"
+                        href="https://github.com/haltsecurity/urlinks"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"

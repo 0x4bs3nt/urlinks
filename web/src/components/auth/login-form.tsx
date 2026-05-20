@@ -54,9 +54,12 @@ const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<'div'
                         id: res.id,
                         username: res.username || data.username,
                         email: res.email,
+                        session_id: res.session_id,
                         access: res.access,
                         refresh: res.refresh,
                     });
+
+                    navigate('/dashboard');
                 },
             }
         );

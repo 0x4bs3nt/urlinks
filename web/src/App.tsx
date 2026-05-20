@@ -1,6 +1,15 @@
 import { Routes, Route } from 'react-router';
 import { Toaster } from './components/ui/sonner';
+import DashboardLayout from './components/dashboard';
+import LoginRoute from './app/auth/login-route';
+import LoginPage from './app/auth/login';
+import PrivateRoute from './app/auth/private-route';
+import RegisterPage from './app/auth/register';
 import LandingPage from './pages/landing';
+import DashboardAnalytics from './pages/dashboard/analytics';
+import AccountSessionsPage from './pages/dashboard/account-sessions';
+import DashboardHome from './pages/dashboard/home';
+import DashboardLinks from './pages/dashboard/links';
 
 // const Layout = () => (
 //     <>
@@ -24,19 +33,20 @@ export function App() {
                 {/*     <Route path="/terms" element={<div>Terms of Service - Coming Soon</div>} /> */}
                 {/* </Route> */}
 
-                {/* <Route element={<PrivateRoute />}> */}
-                {/*     <Route path="/dashboard" element={<DashboardLayout />}> */}
-                {/*         <Route index element={<DashboardHome />} /> */}
-                {/*         <Route path="links" element={<DashboardLinks />} /> */}
-                {/*         <Route path="analytics" element={<DashboardAnalytics />} /> */}
-                {/*     </Route> */}
-                {/* </Route> */}
+                <Route element={<PrivateRoute />}>
+                    <Route path="/dashboard" element={<DashboardLayout />}>
+                        <Route index element={<DashboardHome />} />
+                        <Route path="links" element={<DashboardLinks />} />
+                        <Route path="analytics" element={<DashboardAnalytics />} />
+                        <Route path="account/sessions" element={<AccountSessionsPage />} />
+                    </Route>
+                </Route>
 
                 {/* Public routes without header */}
-                {/* <Route element={<LoginRoute />}> */}
-                {/*     <Route path="/login" element={<LoginPage />} /> */}
-                {/*     <Route path="/register" element={<RegisterPage />} /> */}
-                {/* </Route> */}
+                <Route element={<LoginRoute />}>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                </Route>
             </Routes>
         </>
     );

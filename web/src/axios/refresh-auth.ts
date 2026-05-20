@@ -1,47 +1,66 @@
 import axios, { type AxiosError } from 'axios';
+import { toast } from 'sonner';
 
-import { fetchTokens, removeTokens, setLsAccess } from '@/lib/localStorage';
-import { setHeaderToken } from '.';
+import { removeHeaderToken, setHeaderToken } from '.';
+import { fetchTokens, setTokens } from '@/lib/localStorage';
+import { clearAuthStore, useAuthStore } from '@/store/auth';
 
 interface RefreshTokenResponse {
     access: string;
+    refresh: string;
 }
 
 const BASE_URL = import.meta.env.VITE_BE_URL;
 
-const axiosInst = axios.create({
+const refreshClient = axios.create({
     baseURL: BASE_URL,
     headers: {
         'Content-Type': 'multipart/form-data',
     },
 });
 
-export const fetchNewToken = async (): Promise<string | null> => {
+export const fetchNewToken = async (): Promise<RefreshTokenResponse | null> => {
     const tokens = fetchTokens();
+    if (!tokens?.refresh) {
+        return null;
+    }
 
     try {
-        const response = await axiosInst.post<RefreshTokenResponse>('/core/token/refresh/', {
+        const response = await refreshClient.post<RefreshTokenResponse>('/core/token/refresh/', {
             refresh: tokens?.refresh,
         });
 
-        return response.data.access;
+        return response.data;
     } catch {
         return null;
     }
 };
 
 export const refreshAuth = async (failedRequest: AxiosError) => {
-    const newToken = await fetchNewToken();
+    const refreshedTokens = await fetchNewToken();
 
-    if (newToken && failedRequest.response) {
-        failedRequest.response.config.headers.Authorization = `Bearer ${newToken}`;
+    if (refreshedTokens && failedRequest.response?.config.headers) {
+        failedRequest.response.config.headers.Authorization = `Bearer ${refreshedTokens.access}`;
 
-        setHeaderToken(newToken);
-        setLsAccess(newToken);
+        const currentTokens = fetchTokens();
+        if (currentTokens) {
+            const nextTokens = {
+                ...currentTokens,
+                access: refreshedTokens.access,
+                refresh: refreshedTokens.refresh,
+            };
 
-        return Promise.resolve(newToken);
+            setTokens(nextTokens);
+            useAuthStore.getState().setAll(nextTokens);
+        }
+
+        setHeaderToken(refreshedTokens.access);
+
+        return Promise.resolve(refreshedTokens.access);
     } else {
-        removeTokens();
+        removeHeaderToken();
+        clearAuthStore();
+        toast.error('Your session has ended. Please log in again.');
         window.location.href = '/login';
 
         return Promise.reject(new Error('Failed to refresh authentication'));

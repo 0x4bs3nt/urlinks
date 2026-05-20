@@ -6,6 +6,7 @@ interface TokenType {
     id: number | null;
     username: string | null;
     email: string | null;
+    session_id: string | null;
     access: string | null;
     refresh: string | null;
 }
@@ -23,6 +24,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     id: tokens?.id || null,
     username: tokens?.username || null,
     email: tokens?.email || null,
+    session_id: tokens?.session_id || null,
     access: tokens?.access || null,
     refresh: tokens?.refresh || null,
 
@@ -33,6 +35,17 @@ export const useAuthStore = create<AuthStore>((set) => ({
     logout: () => {
         removeTokens();
 
-        set({ access: null, refresh: null });
+        set({
+            id: null,
+            username: null,
+            email: null,
+            session_id: null,
+            access: null,
+            refresh: null,
+        });
     },
 }));
+
+export const clearAuthStore = () => {
+    useAuthStore.getState().logout();
+};

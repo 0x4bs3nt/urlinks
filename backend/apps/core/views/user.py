@@ -4,6 +4,7 @@ from apps.core.serializers.user import (
     CustomTokenPairSerializer,
     RegisterSerializer,
 )
+from apps.core.utils.request import get_client_ip
 from apps.core.utils.turnstile import verify_turnstile_token
 from rest_framework import generics, status
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -23,11 +24,7 @@ class CustomTokenPairView(TokenObtainPairView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-        if x_forwarded_for:
-            client_ip = x_forwarded_for.split(",")[-1].strip()
-        else:
-            client_ip = request.META.get("REMOTE_ADDR", "")
+        client_ip = get_client_ip(request)
 
         if not verify_turnstile_token(turnstile_token, client_ip):
             return Response(
@@ -72,11 +69,7 @@ class RegisterView(generics.CreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-        if x_forwarded_for:
-            client_ip = x_forwarded_for.split(",")[-1].strip()
-        else:
-            client_ip = request.META.get("REMOTE_ADDR", "")
+        client_ip = get_client_ip(request)
 
         if not verify_turnstile_token(turnstile_token, client_ip):
             return Response(
